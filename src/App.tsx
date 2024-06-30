@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import axios from 'axios'; 
 
 
 interface Itodo{
@@ -16,21 +17,24 @@ function App() {
   const[data , setData] =useState<Itodo[]>([])
 
   useEffect(() =>{
+
     //using then
-    fetch("https://jsonplaceholder.typicode.com/todos")
-    .then((response) => response)
-    .then((e) => e.json())
-    .then((e) => {
-      console.log(e)
-      return setData(e as Itodo[])
+  //   fetch("https://jsonplaceholder.typicode.com/todos")
+  //   .then((response) => response)
+  //   .then((e) => e.json())
+  //   .then((e) => {
+  //     console.log(e)
+  //     return setData(e as Itodo[]);
+  //  })
 
-     
+   axios
+  .get<Itodo[]>("https://jsonplaceholder.typicode.com/todos")
+  .then((e) => setData(e.data))
 
-    })
 
   },[])
 
-  console.log("data : " , data)
+  // console.log("data : " , data)
   return (
     <div className="App">
       <header className="App-header">
